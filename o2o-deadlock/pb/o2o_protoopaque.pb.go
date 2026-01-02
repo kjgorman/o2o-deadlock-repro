@@ -4,7 +4,7 @@
 // 	protoc        v6.32.0
 // source: o2o.proto
 
-//go:build !protoopaque
+//go:build protoopaque
 
 package pb
 
@@ -23,14 +23,10 @@ const (
 )
 
 type Outer struct {
-	state protoimpl.MessageState `protogen:"hybrid.v1"`
-	// Types that are valid to be assigned to Either:
-	//
-	//	*Outer_Foo
-	//	*Outer_Bar
-	Either        isOuter_Either `protobuf_oneof:"either"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state             protoimpl.MessageState `protogen:"opaque.v1"`
+	xxx_hidden_Either isOuter_Either         `protobuf_oneof:"either"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
 }
 
 func (x *Outer) Reset() {
@@ -58,16 +54,9 @@ func (x *Outer) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-func (x *Outer) GetEither() isOuter_Either {
-	if x != nil {
-		return x.Either
-	}
-	return nil
-}
-
 func (x *Outer) GetFoo() string {
 	if x != nil {
-		if x, ok := x.Either.(*Outer_Foo); ok {
+		if x, ok := x.xxx_hidden_Either.(*outer_Foo); ok {
 			return x.Foo
 		}
 	}
@@ -76,7 +65,7 @@ func (x *Outer) GetFoo() string {
 
 func (x *Outer) GetBar() string {
 	if x != nil {
-		if x, ok := x.Either.(*Outer_Bar); ok {
+		if x, ok := x.xxx_hidden_Either.(*outer_Bar); ok {
 			return x.Bar
 		}
 	}
@@ -84,25 +73,25 @@ func (x *Outer) GetBar() string {
 }
 
 func (x *Outer) SetFoo(v string) {
-	x.Either = &Outer_Foo{v}
+	x.xxx_hidden_Either = &outer_Foo{v}
 }
 
 func (x *Outer) SetBar(v string) {
-	x.Either = &Outer_Bar{v}
+	x.xxx_hidden_Either = &outer_Bar{v}
 }
 
 func (x *Outer) HasEither() bool {
 	if x == nil {
 		return false
 	}
-	return x.Either != nil
+	return x.xxx_hidden_Either != nil
 }
 
 func (x *Outer) HasFoo() bool {
 	if x == nil {
 		return false
 	}
-	_, ok := x.Either.(*Outer_Foo)
+	_, ok := x.xxx_hidden_Either.(*outer_Foo)
 	return ok
 }
 
@@ -110,23 +99,23 @@ func (x *Outer) HasBar() bool {
 	if x == nil {
 		return false
 	}
-	_, ok := x.Either.(*Outer_Bar)
+	_, ok := x.xxx_hidden_Either.(*outer_Bar)
 	return ok
 }
 
 func (x *Outer) ClearEither() {
-	x.Either = nil
+	x.xxx_hidden_Either = nil
 }
 
 func (x *Outer) ClearFoo() {
-	if _, ok := x.Either.(*Outer_Foo); ok {
-		x.Either = nil
+	if _, ok := x.xxx_hidden_Either.(*outer_Foo); ok {
+		x.xxx_hidden_Either = nil
 	}
 }
 
 func (x *Outer) ClearBar() {
-	if _, ok := x.Either.(*Outer_Bar); ok {
-		x.Either = nil
+	if _, ok := x.xxx_hidden_Either.(*outer_Bar); ok {
+		x.xxx_hidden_Either = nil
 	}
 }
 
@@ -138,10 +127,10 @@ func (x *Outer) WhichEither() case_Outer_Either {
 	if x == nil {
 		return Outer_Either_not_set_case
 	}
-	switch x.Either.(type) {
-	case *Outer_Foo:
+	switch x.xxx_hidden_Either.(type) {
+	case *outer_Foo:
 		return Outer_Foo_case
-	case *Outer_Bar:
+	case *outer_Bar:
 		return Outer_Bar_case
 	default:
 		return Outer_Either_not_set_case
@@ -151,10 +140,10 @@ func (x *Outer) WhichEither() case_Outer_Either {
 type Outer_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
-	// Fields of oneof Either:
+	// Fields of oneof xxx_hidden_Either:
 	Foo *string
 	Bar *string
-	// -- end of Either
+	// -- end of xxx_hidden_Either
 }
 
 func (b0 Outer_builder) Build() *Outer {
@@ -162,10 +151,10 @@ func (b0 Outer_builder) Build() *Outer {
 	b, x := &b0, m0
 	_, _ = b, x
 	if b.Foo != nil {
-		x.Either = &Outer_Foo{*b.Foo}
+		x.xxx_hidden_Either = &outer_Foo{*b.Foo}
 	}
 	if b.Bar != nil {
-		x.Either = &Outer_Bar{*b.Bar}
+		x.xxx_hidden_Either = &outer_Bar{*b.Bar}
 	}
 	return m0
 }
@@ -184,17 +173,17 @@ type isOuter_Either interface {
 	isOuter_Either()
 }
 
-type Outer_Foo struct {
+type outer_Foo struct {
 	Foo string `protobuf:"bytes,1,opt,name=foo,proto3,oneof"`
 }
 
-type Outer_Bar struct {
+type outer_Bar struct {
 	Bar string `protobuf:"bytes,2,opt,name=bar,proto3,oneof"`
 }
 
-func (*Outer_Foo) isOuter_Either() {}
+func (*outer_Foo) isOuter_Either() {}
 
-func (*Outer_Bar) isOuter_Either() {}
+func (*outer_Bar) isOuter_Either() {}
 
 var File_o2o_proto protoreflect.FileDescriptor
 
@@ -224,8 +213,8 @@ func file_o2o_proto_init() {
 		return
 	}
 	file_o2o_proto_msgTypes[0].OneofWrappers = []any{
-		(*Outer_Foo)(nil),
-		(*Outer_Bar)(nil),
+		(*outer_Foo)(nil),
+		(*outer_Bar)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{

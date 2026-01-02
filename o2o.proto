@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option go_package = "o2o-deadlock/pb";
+
+message Outer {
+  oneof either {
+    string foo = 1;
+    string bar = 2;
+  }
+}
